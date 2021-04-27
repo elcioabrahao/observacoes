@@ -23,13 +23,15 @@ const funcoes = {
                 lembreteId: observacao.lembreteId,
                 status: observacao.status
             }
+        }).catch((err) => {
+            console.log("err", err);
         });
     }
 }
 app.post("/eventos", (req, res) => {
     try {
         funcoes[req.body.tipo](req.body.dados);
-    } catch (e) {}
+    } catch (err) {}
     res.status(200).send({
         msg: "ok"
     });
@@ -60,7 +62,9 @@ app.put('/lembretes/:id/observacoes', async (req, res) => {
             lembreteId: req.params.id,
             status: 'aguardando'
         }
-    })
+    }).catch((err) => {
+        console.log("err", err);
+    });
     res.status(201).send(observacoesDoLembrete);
 });
 app.get('/lembretes/:id/observacoes', (req, res) => {
